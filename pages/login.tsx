@@ -1,6 +1,7 @@
 import { FormEvent, useState } from 'react';
 import { signIn } from '../firebaseClient';
 import { Box, Button, FormControl, FormLabel, Heading, Input, VStack, useToast } from '@chakra-ui/react';
+import '../firebaseClient';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
