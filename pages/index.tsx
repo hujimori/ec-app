@@ -1,3 +1,4 @@
+import { Product } from '@/lib/types/products';
 import {
   Card,
   CardHeader,
@@ -11,8 +12,15 @@ import {
   Button,
 } from '@chakra-ui/react';
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
 
 export default function Home() {
+  const [products, setProducts] = useState<Product[]>([]);
+
+  useEffect(() => {
+    async function fetchProducts() {}
+  });
+
   return (
     <>
       <Card maxW="sm">

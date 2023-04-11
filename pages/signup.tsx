@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import { FormEvent, useState } from 'react';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import { Box, Button, FormControl, FormLabel, Input, VStack } from '@chakra-ui/react';
-import '../firebaseClient';
+import '../lib/firebase/firebaseClient';
 
 const SignUp = () => {
   const [email, setEmail] = useState('');
