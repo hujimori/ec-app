@@ -1,21 +1,12 @@
 import { createContext, useState, ReactNode } from 'react';
 
-// 商品情報を表すインターフェイスを定義する。
-interface Product {
-  id: number;
-  name: string;
-  description: string;
-  price: number;
-  quantity?: number;
-}
-
 // コンテキスト（Context）は、Reactアプリケーション内でデータをグローバルに保持し、コンポーネント間で状態や関数を共有するために使用される機能である。
 // コンテキストを使うことで、コンポーネントの階層を介してプロパティを渡すことなく、データを簡単にアクセスできる。
 // カートのコンテキストの値に関連するインターフェイスを定義する。
 //// カートの状態、商品をカートに追加する関数、カートから商品を削除する関数が含まれている。
 interface CartContextValue {
-  cart: Product[];
-  addToCart: (product: Product) => void;
+  cart: CartItem[];
+  addToCart: (cartItem: CartItem) => void;
   removeFromCart: (productId: number) => void;
 }
 
@@ -34,11 +25,11 @@ interface CartProviderProps {
 export const CartProvider = ({ children }: CartProviderProps) => {
   // useStateフックを使って、カートの状態を管理する。
   // 初期状態は空の配列
-  const [cart, setCart] = useState<Product[]>([]);
+  const [cart, setCart] = useState<CartItem[]>([]);
 
   // 商品をカートに追加する関数を定義する。
-  const addToCart = (product: Product) => {
-    const itemIndex = cart.findIndex((item) => item.id === product.id);
+  const addToCart = (cartItem: CartItem) => {
+    const itemIndex = cart.findIndex((item) => item.id === cartItem.id);
 
     if (itemIndex !== -1) {
       const updatedCart = [...cart];
@@ -46,7 +37,7 @@ export const CartProvider = ({ children }: CartProviderProps) => {
       setCart(updatedCart);
     } else {
       // カートに商品を追加するため、現在のカートの状態に新しい商品を追加して、setCartで状態を更新する。
-      setCart([...cart, product]);
+      setCart([...cart, cartItem]);
     }
   };
 

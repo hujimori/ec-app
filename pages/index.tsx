@@ -1,3 +1,4 @@
+import CartContext from '@/contexts/CartContext';
 import { getProducts } from '@/lib/firebase/firebaseUtils';
 import { Product } from '@/lib/types/products';
 import {
@@ -16,7 +17,8 @@ import {
 } from '@chakra-ui/react';
 import { Console } from 'console';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import { useContext, useEffect, useState } from 'react';
 
 export default function Home() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -28,6 +30,27 @@ export default function Home() {
     }
     fetchProducts();
   }, []);
+
+  const { addToCart } = useContext(CartContext);
+  const router = useRouter();
+
+  // カートに商品を追加する
+  const handleAddToCart = (product: Product) => {
+    if (!product) return;
+
+    const cartItem: CartItem = {
+      id: Number(product.id),
+      name: product.name,
+      price: product.price.unit_amount,
+      description: product.description,
+      priceId: product.price.id,
+    };
+
+    addToCart(cartItem);
+    console.log('商品はカートへ追加されました。');
+    router.push('/cart');
+  };
+
   return (
     <>
       <Flex justifyContent="center">
@@ -46,14 +69,13 @@ export default function Home() {
               <Divider />
               <CardFooter>
                 <ButtonGroup spacing="2">
-                  <Button variant="ghost" colorScheme="blue">
+                  <Button variant="ghost" colorScheme="blue" onClick={() => handleAddToCart(product)}>
                     Add to cart
                   </Button>
                 </ButtonGroup>
               </CardFooter>
             </Card>
           ))}
-          ;
         </Box>
       </Flex>
     </>

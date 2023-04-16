@@ -17,7 +17,10 @@ export const getProducts = async (): Promise<Product[]> => {
           id: doc.id,
           name: data.name,
           description: data.description,
-          price: prices.length > 0 ? (prices[0].data() as Price) : null,
+          price: {
+            id: prices.length > 0 ? prices[0].id : null,
+            ...prices[0].data(),
+          },
         };
       }),
     )) as Product[];
@@ -26,4 +29,11 @@ export const getProducts = async (): Promise<Product[]> => {
   } catch (error) {
     throw new Error('Error getting products: ' + error);
   }
+};
+
+export const checkoutSession = async (checkoutSession) => {
+  try {
+    const uid = "";
+    collection(db,'customers', uid,checkout_sessions
+  } catch (error) {}
 };
