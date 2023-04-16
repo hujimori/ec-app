@@ -3,4 +3,9 @@ export interface Product {
   name: string;
   price: number;
   description: string;
+  prices: {
+    metadata: {
+      unit_amount: number;
+    };
+  };
 }

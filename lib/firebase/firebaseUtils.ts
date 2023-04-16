@@ -8,6 +8,7 @@ export const getProducts = async (): Promise<Product[]> => {
     const snapshot = await getDocs(productsRef);
     const products = snapshot.docs.map((doc) => ({
       id: doc.id,
+      ...doc.data(),
     })) as Product[];
     return products;
   } catch (error) {
