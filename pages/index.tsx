@@ -1,3 +1,4 @@
+import Header from '@/components/header';
 import CartContext from '@/contexts/CartContext';
 import { getProducts } from '@/lib/firebase/firebaseUtils';
 import { Product } from '@/lib/types/products';
@@ -53,6 +54,7 @@ export default function Home() {
 
   return (
     <>
+      <Header />
       <Flex justifyContent="center">
         <Box maxW="700px" w="100%">
           {products.map((product) => (

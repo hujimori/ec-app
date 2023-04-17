@@ -31,9 +31,9 @@ export const getProducts = async (): Promise<Product[]> => {
   }
 };
 
-export const checkoutSession = async (checkoutSession) => {
-  try {
-    const uid = "";
-    collection(db,'customers', uid,checkout_sessions
-  } catch (error) {}
-};
+// export const checkoutSession = async (checkoutSession) => {
+//   try {
+//     const uid = "";
+//     collection(db,'customers', uid,checkout_sessions
+//   } catch (error) {}
+// };
