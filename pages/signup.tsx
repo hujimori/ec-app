@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import { FormEvent, useState } from 'react';
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, ActionCodeSettings } from 'firebase/auth';
 import { Box, Button, FormControl, FormLabel, Input, VStack } from '@chakra-ui/react';
 import '../lib/firebase/firebaseClient';
 
@@ -14,8 +14,12 @@ const SignUp = () => {
 
     const auth = getAuth();
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
-
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const actionCodeSettings: ActionCodeSettings = {
+        url: 'http://localhost:3001/',
+        handleCodeInApp: true,
+      };
+      await sendEmailVerification(userCredential.user, actionCodeSettings);
       // 登録後、ホームページにリダイレクト
       router.push('/');
     } catch (error) {

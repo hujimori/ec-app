@@ -1,4 +1,5 @@
 import Header from '@/components/header';
+import { useAuthContext } from '@/contexts/AuthContext';
 import CartContext from '@/contexts/CartContext';
 import { getProducts } from '@/lib/firebase/firebaseUtils';
 import { Product } from '@/lib/types/products';
@@ -23,7 +24,8 @@ import { useContext, useEffect, useState } from 'react';
 
 export default function Home() {
   const [products, setProducts] = useState<Product[]>([]);
-
+  const userContext = useAuthContext();
+  console.log(userContext.user?.emailVerified);
   useEffect(() => {
     async function fetchProducts() {
       const fetchProducts = await getProducts();
@@ -78,6 +80,9 @@ export default function Home() {
               </CardFooter>
             </Card>
           ))}
+        </Box>
+        <Box>
+          <Text>{userContext.user?.emailVerified}</Text>
         </Box>
       </Flex>
     </>
