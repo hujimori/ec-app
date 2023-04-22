@@ -17,7 +17,7 @@ export interface AuthProps {
 // AuthContextProps型のすべてのプロパティをオプションプロパティにする
 const AuthContext = createContext<Partial<AuthContextProps>>({});
 
-export const useAuthContext = () => {
+export const UseAuthContext = () => {
   return useContext(AuthContext);
 };
 

@@ -1,20 +1,23 @@
 import { FormEvent, useContext } from 'react';
 import CartContext from '@/contexts/CartContext';
 import { Box, Button, Heading, Text } from '@chakra-ui/react';
+import { buyProducts } from '@/lib/firebase/firebaseUtils';
+import { UseAuthContext } from '@/contexts/AuthContext';
 
 const Cart = () => {
   const { cart, removeFromCart } = useContext(CartContext);
+  const userContext = UseAuthContext();
 
+  console.log(cart);
   const handleCheckout = async (e: FormEvent) => {
     e.preventDefault();
 
-    const selectedPrices: { quantity: number | undefined; price: number }[] = [];
-
-    cart.map((item) => {
-      selectedPrices.push({
+    const selectedPrices = cart.map((item) => {
+      const selectedPrice = {
+        price: item.priceId,
         quantity: item.quantity,
-        price: item.price,
-      });
+      };
+      return selectedPrice;
     });
 
     const checkoutSession = {
@@ -29,8 +32,9 @@ const Cart = () => {
         key: 'value',
       },
       mode: 'payment',
-      payment_method_types: ['card', 'sepa_debit', 'sofort'],
     };
+
+    buyProducts(checkoutSession, userContext.user?.uid);
   };
 
   return (

@@ -1,4 +1,4 @@
-import { useAuthContext } from '@/contexts/AuthContext';
+import { UseAuthContext } from '@/contexts/AuthContext';
 import {
   Box,
   Button,
@@ -18,7 +18,7 @@ import { ReactElement } from 'react';
 import { FiMenu } from 'react-icons/fi';
 
 export default function Header() {
-  const authContext = useAuthContext();
+  const authContext = UseAuthContext();
   console.log(authContext);
   const isLogin = !!authContext.user;
 

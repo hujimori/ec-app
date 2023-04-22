@@ -1,5 +1,5 @@
 import Header from '@/components/header';
-import { useAuthContext } from '@/contexts/AuthContext';
+import { UseAuthContext } from '@/contexts/AuthContext';
 import CartContext from '@/contexts/CartContext';
 import { getProducts } from '@/lib/firebase/firebaseUtils';
 import { Product } from '@/lib/types/products';
@@ -24,7 +24,7 @@ import { useContext, useEffect, useState } from 'react';
 
 export default function Home() {
   const [products, setProducts] = useState<Product[]>([]);
-  const userContext = useAuthContext();
+  const userContext = UseAuthContext();
   console.log(userContext.user?.emailVerified);
   useEffect(() => {
     async function fetchProducts() {
@@ -47,6 +47,7 @@ export default function Home() {
       price: product.price.unit_amount,
       description: product.description,
       priceId: product.price.id,
+      quantity: 1,
     };
 
     addToCart(cartItem);
